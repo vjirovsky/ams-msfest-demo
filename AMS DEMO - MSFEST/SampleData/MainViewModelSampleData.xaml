@@ -1,0 +1,21 @@
+﻿<vm:MainViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:AMS_DEMO___MSFEST.ViewModels"
+    xmlns:m="clr-namespace:AMS_DEMO___MSFEST.Models">
+
+    <vm:MainViewModel.DataStorageItems>
+        <m:User first_name="Tomas" provider="Microsoft Account"></m:User>
+        <m:User first_name="Eva" provider="Facebook"></m:User>
+        <m:User first_name="Petr" provider="Twitter"></m:User>
+        <m:User first_name="Pavel" provider="Google"></m:User>
+    </vm:MainViewModel.DataStorageItems>
+    
+    <vm:MainViewModel.Providers>
+        <m:ProviderModel m:Name="Microsoft Account" />
+        <m:ProviderModel m:Name="Facebook" />
+        <m:ProviderModel m:Name="Twitter" />
+        <m:ProviderModel m:Name="Google" />
+    </vm:MainViewModel.Providers>
+
+</vm:MainViewModel>

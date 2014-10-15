@@ -1,0 +1,139 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="AMS_DEMO___MSFEST.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+         <!--Panorama control-->
+        <phone:Panorama Title="AMS demonstration" HorizontalAlignment="Left" Width="480">
+            <phone:Panorama.Background>
+                <ImageBrush ImageSource="/MSFEST_AMS_Demo;component/Assets/PanoramaBackground.png"/>
+            </phone:Panorama.Background>
+
+            <!--Panorama item one-->
+            <phone:PanoramaItem Header="data storage" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}">
+                <!--Single line list with text wrapping-->
+                <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding DataStorageItems}">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                                <Image Source="{Binding profile_picture}" Width="75" Height="75" VerticalAlignment="Top" />
+                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                    <TextBlock Text="{Binding first_name}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                    <TextBlock Text="{Binding provider}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+            </phone:PanoramaItem>
+
+            <!--Panorama item two-->
+            <phone:PanoramaItem Header="user identity" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}">
+                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
+                    <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding Providers}" Tap="ProviderList_Tap" x:Name="ProviderList">
+                    <phone:LongListSelector.ListHeaderTemplate>
+                        <DataTemplate>
+                            <Grid Margin="12,0,0,38">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                        </DataTemplate>
+                    </phone:LongListSelector.ListHeaderTemplate>
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                                <Image Source="{Binding UserDetails.picture}" Width="99" Height="99" />
+                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="#C19600" />
+                                    <TextBlock Text="{Binding UserDetails.first_name}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+            </phone:PanoramaItem>
+
+            <!--Panorama item three-->
+            <phone:PanoramaItem Header="push notification" Orientation="Vertical" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}">
+
+                <!--Double wide Panorama with large image placeholders-->
+                <Grid>
+                    <StackPanel Margin="15,0,16,0" Orientation="Vertical" VerticalAlignment="Top">
+                        <StackPanel Margin="0,0,0,30" HorizontalAlignment="Left" Orientation="Vertical">
+                            <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" Foreground="#FFCBCBCB">
+                                If you register for push notifications, you will recieve some informations by toast and tile notification.
+                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" Foreground="#FFCBCBCB">
+                                Push notifications are handled by Azure Notification Hubs.
+                            </TextBlock>
+                            
+                            <Button x:Name="registerButton" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Click="registerButton_Click">Register for push notifications</Button>
+                            <Button x:Name="unregisterButton" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" Click="unregisterButton_Click">Unregister from push notifications</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </phone:PanoramaItem>
+            <phone:PanoramaItem Header="about app" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}">
+                <RichTextBox TextWrapping="Wrap" VerticalAlignment="Top">
+                    <Paragraph>
+                        App has been created for conference
+                        <Hyperlink Foreground="#FFAFD8D7" Click="HyperlinkMSFest_Click">
+                            MS FEST 2013
+                        </Hyperlink>
+                        , as support material for demonstration of
+                        <Hyperlink Foreground="#FFAFD8D7" Click="HyperlinkAzure_Click">
+                            Azure Mobile Services
+                        </Hyperlink>.
+                        <LineBreak />
+                        <LineBreak />
+                    </Paragraph>
+                    <Paragraph>
+                        Source code on GitHub:
+                        <LineBreak />
+                        <Hyperlink Foreground="#FFAFD8D7" Click="HyperlinkGithub_Click">
+                            https://github.com/vjirovsky/ams-msfest-demo
+                        </Hyperlink>
+                        <LineBreak />
+                        <LineBreak />
+                    </Paragraph>
+                    <Paragraph> 
+                        Created by
+                        <Hyperlink Foreground="#FFAFD8D7" Click="HyperlinkAuthor_Click">Vaclav Jirovsky</Hyperlink>, 2013
+                    </Paragraph>
+
+                </RichTextBox>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+
+        <!--Uncomment to see an alignment grid to help ensure your controls are
+            aligned on common boundaries.  The image has a top margin of -32px to
+            account for the System Tray. Set this to 0 (or remove the margin altogether)
+            if the System Tray is hidden.
+
+            Before shipping remove this XAML and the image itself.-->
+        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" Opacity="0.65" Mode="Minimized">
+            <shell:ApplicationBarIconButton IconUri="Assets/AppBar/refresh.png" Text="Refresh" Click="ApplicationBarIconButton_Click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
